@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
 
     private float staramount;
     private float lightamount;
+    private float moneyamount;
 
     private bool gameover = false;
 
@@ -16,9 +17,10 @@ public class Movement : MonoBehaviour
     private Supply supply;
     public LightBulb lights;
     public StarRating stars;
+    public Money money;
 
     void Start()
-    {
+    {   
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
     }
@@ -29,6 +31,7 @@ public class Movement : MonoBehaviour
         //basic stat
         staramount = stars.staramount();
         lightamount = lights.lightamount();
+        moneyamount = money.moneycount();
 
         //player movement
         int up = Input.GetKey(KeyCode.W) ? 1 : 0;
@@ -74,6 +77,14 @@ public class Movement : MonoBehaviour
             lights.addlight(1);
         }
 
+        //test money
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            money.minusmoney(100);
+        } else if (Input.GetKeyDown(KeyCode.M))
+        {
+            money.addmoney(100);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
