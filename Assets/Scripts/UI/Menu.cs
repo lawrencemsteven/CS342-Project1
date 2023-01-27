@@ -13,13 +13,17 @@ public class Menu : MonoBehaviour
 
     public void HowtoPlay()
     {
-        Debug.Log("How to play Scene");
-        //Scene Manager load to how to play scene
+        SceneManager.LoadScene("HowToPlay");
     }
 
     public void QuitGame() 
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
     }
 }

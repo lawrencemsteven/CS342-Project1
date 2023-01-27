@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 1f;
+    public float speed = 3f;
 
     private float staramount;
     private float lightamount;
     private float moneyamount;
+
+    public float installTime = 2f;
+    private bool installingLight = false;
+    private float installTimeCountdown;
+
+    private bool pickupLight = false;
 
     private bool gameover = false;
 
@@ -19,9 +26,16 @@ public class Movement : MonoBehaviour
     public StarRating stars;
     public Money money;
 
+    private SpriteRenderer sprite;
+
+    public OfficeManager officeManager;
+
+    private int fixCount = 0;
+
     void Start()
     {   
         rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
         rb.freezeRotation = true;
     }
 
@@ -40,23 +54,51 @@ public class Movement : MonoBehaviour
         int left = Input.GetKey(KeyCode.A) ? 1 : 0;
         int right = Input.GetKey(KeyCode.D) ? 1 : 0;
         
-        rb.velocity = ((up * 3 - down * 3) * transform.up) + ((right - left) * transform.right) * speed;
+        rb.velocity = (((up - down) * transform.up) + ((right - left) * transform.right)) * speed;
 
         //player install and get lightbulbs
         if (Input.GetKey(KeyCode.E)) {
-            if (office != null) {
-                office.installLight();
-            } else if (supply != null) {
+            if (office != null && !office.lightOn && lightamount > 0) {
+                if (!installingLight)
+                {
+                    installingLight = true;
+                    sprite.color = new Color(0.5f, 1.0f, 0.5f, 1.0f);
+                    installTimeCountdown = installTime;
+                }
+                installTimeCountdown -= Time.deltaTime;
+                if (installTimeCountdown <= 0.0f)
+                {
+                    officeManager.LightOn(office);
+                    installingLight = false;
+                    sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    lights.losslight(1);
+                    money.addmoney(10);
+                    fixCount += 1;
+                    if (fixCount == 10)
+                    {
+                        fixCount = 0;
+                        stars.addstar(1);
+                    }
+                }
+            } else if (supply != null && !pickupLight) {
                 supply.pickupLight();
+                pickupLight = true;
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            installingLight = false;
+            sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+            pickupLight = false;
         }
 
         //Game over
         if (staramount == 0 && gameover == false)
         {
             gameover = true;
-            Debug.Log("Game Over!!");
-            //scene manager - jump to game over scene
+            SceneManager.LoadScene("GameOver");
         }
 
         //test star rating

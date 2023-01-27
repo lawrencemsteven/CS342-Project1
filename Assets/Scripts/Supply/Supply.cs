@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Supply : MonoBehaviour
 {
+    public LightBulb lightBulb;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,6 @@ public class Supply : MonoBehaviour
     }
 
     public void pickupLight() {
-        Debug.Log("Supply Test");
+        lightBulb.addlight(1);
     }
 }

@@ -7,6 +7,7 @@ public class LightBulb : MonoBehaviour
 {
     public float lights, maxLights = 5;
     public Image[] lightbulbs;
+    public Sprite[] lightBulbSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class LightBulb : MonoBehaviour
     {
         for (int i = 0; i < lightbulbs.Length; i++)
         {
-            lightbulbs[i].enabled = !DisplayLightBulb(lights, i);
+            lightbulbs[i].sprite = !DisplayLightBulb(lights, i) ? lightBulbSprites[0] : lightBulbSprites[1];
         }
     }
 

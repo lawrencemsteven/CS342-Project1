@@ -8,6 +8,7 @@ public class StarRating : MonoBehaviour
     public float stars = 3f; 
     public float maxstars = 5f;
     public Image[] starRating;
+    public Sprite[] starRatingSprites;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class StarRating : MonoBehaviour
     {
         for (int i = 0; i < starRating.Length; i++)
         {
-            starRating[i].enabled = !DisplayStarRating(stars, i);
+            starRating[i].sprite = !DisplayStarRating(stars, i) ? starRatingSprites[0] : starRatingSprites[1];
         }
     }
 
