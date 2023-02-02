@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 3f;
+    public float speed = 4f;
+    public float fixingspeed = 0f;
 
     private float staramount;
     private float lightamount;
     private float moneyamount;
+    private float wrenchpoint;
+    private float shoepoint;
+    private float overallmoney;
 
     public float installTime = 2f;
     private bool installingLight = false;
@@ -22,9 +26,15 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rb;
     private Office office;
     private Supply supply;
+    private Wrench wrench;
+    private Shoe shoe;
+
     public LightBulb lights;
     public StarRating stars;
     public Money money;
+    public WrenchUpgrade wrenchup;
+    public ShoeUpgrade shoeup;
+
     public Animator animator;
 
     private SpriteRenderer sprite;
@@ -47,6 +57,8 @@ public class Movement : MonoBehaviour
         staramount = stars.staramount();
         lightamount = lights.lightamount();
         moneyamount = money.moneycount();
+        wrenchpoint = wrenchup.wrenchPamount();
+        shoepoint = shoeup.shoePamount();
 
         //player movement
         int up = Input.GetKey(KeyCode.W) ? 1 : 0;
@@ -92,7 +104,7 @@ public class Movement : MonoBehaviour
                 {
                     installingLight = true;
                     sprite.color = new Color(0.5f, 1.0f, 0.5f, 1.0f);
-                    installTimeCountdown = installTime;
+                    installTimeCountdown = installTime - fixingspeed;
                 }
                 installTimeCountdown -= Time.deltaTime;
                 if (installTimeCountdown <= 0.0f)
@@ -101,7 +113,8 @@ public class Movement : MonoBehaviour
                     installingLight = false;
                     sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     lights.losslight(1);
-                    money.addmoney(10);
+                    money.addmoney(20);
+                    overallmoney += 20f;
                     fixCount += 1;
                     if (fixCount == 10)
                     {
@@ -113,6 +126,22 @@ public class Movement : MonoBehaviour
                 supply.pickupLight();
                 pickupLight = true;
             }
+        }
+
+        // Wrench Upgrade
+        if (Input.GetKeyDown(KeyCode.E) && wrench != null && moneyamount >= 100 && wrenchpoint < 5) 
+        {
+                money.minusmoney(100);
+                wrenchup.addPoint(1);
+                fixingspeed += 1f;
+        }
+
+        // Shoe Upgrade
+        if (Input.GetKeyDown(KeyCode.E) && shoe != null && moneyamount >= 100 && shoepoint <5)
+        {
+            money.minusmoney(100);
+            shoeup.addPoint(1);
+            speed += 1f;
         }
 
         if (Input.GetKeyUp(KeyCode.E))
@@ -164,6 +193,10 @@ public class Movement : MonoBehaviour
             office = collider.gameObject.GetComponent<Office>();
         } else if (collider.gameObject.tag == "Supply") {
             supply = collider.gameObject.GetComponent<Supply>();
+        } else if (collider.gameObject.tag == "Wrench") {
+            wrench = collider.gameObject.GetComponent<Wrench>();
+        } else if (collider.gameObject.tag == "Shoe") {
+            shoe = collider.gameObject.GetComponent<Shoe>();
         }
     }
 
@@ -173,6 +206,15 @@ public class Movement : MonoBehaviour
             office = null;
         } else if (collider.gameObject.tag == "Supply") {
             supply = null;
+        } else if (collider.gameObject.tag == "Wrench") {
+            wrench = null;
+        } else if (collider.gameObject.tag == "Shoe") {
+            shoe = null;
         }
+    }
+
+    public float allmoney() 
+    {
+        return overallmoney;
     }
 }

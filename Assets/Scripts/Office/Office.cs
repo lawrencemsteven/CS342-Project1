@@ -13,11 +13,22 @@ public class Office : MonoBehaviour
 
     private TMP_Text textComponent;
 
-    public const float patience = 30.0f;
+    public float patience = 50f;
     private float patienceCountdown;
+    private float overallmoney;
 
     public OfficeManager officeManager;
     public StarRating starRating;
+    public Movement player;
+
+    public float difficultyInterval1 = 20f;
+    public float difficultyInterval2 = 40f;
+    public float difficultyInterval3 = 60f;
+    public float patienceSpeedup = 10f;
+
+    private bool difficulty1 = false;
+    private bool difficulty2 = false;
+    private bool difficulty3 = false;
 
     public void Start()
     {
@@ -40,6 +51,23 @@ public class Office : MonoBehaviour
             {
                 textComponent.text = patienceCountdown.ToString("0");
             }
+        }
+
+        overallmoney = player.allmoney();
+
+        //speed up patience
+        if (overallmoney >= difficultyInterval1 && overallmoney <= difficultyInterval2 && !difficulty1)
+        {
+            patience -= patienceSpeedup;
+            difficulty1 = true;
+        } else if (overallmoney > difficultyInterval2 && overallmoney <= difficultyInterval3 && !difficulty2)
+        {
+            patience -= patienceSpeedup;
+            difficulty2 = true;
+        } else if (overallmoney > difficultyInterval3 && !difficulty3)
+        {
+            patience -= patienceSpeedup;
+            difficulty3 = true;
         }
     }
 
