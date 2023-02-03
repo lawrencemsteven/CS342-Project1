@@ -43,6 +43,13 @@ public class Movement : MonoBehaviour
 
     private int fixCount = 0;
 
+    private bool footstepsPlaying = false;
+    public AudioSource snd_footsteps;
+    public AudioSource snd_glassBreak;
+    public AudioSource snd_goodJob;
+    public AudioSource snd_screwInBulb;
+    public AudioSource snd_upgrade;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -67,8 +74,23 @@ public class Movement : MonoBehaviour
         int left = Input.GetKey(KeyCode.A) ? 1 : 0;
         int right = Input.GetKey(KeyCode.D) ? 1 : 0;
 
+        if (installingLight) {
+            up = 0;
+            down = 0;
+            left = 0;
+            right = 0;
+            snd_footsteps.Stop();
+            footstepsPlaying = true;
+        }
+        
         rb.velocity = (((up - down) * transform.up) + ((right - left) * transform.right)) * speed;
-
+        if (!footstepsPlaying && (up - down != 0 || right - left != 0)) {
+            footstepsPlaying = true;
+            snd_footsteps.Play();
+        } else if (footstepsPlaying && (up - down == 0 && right - left == 0)) {
+            footstepsPlaying = false;
+            snd_footsteps.Stop();
+        }
 
         //player animation change direction
         if (Input.GetKey(KeyCode.W)) {
@@ -103,6 +125,7 @@ public class Movement : MonoBehaviour
                 if (!installingLight)
                 {
                     installingLight = true;
+                    snd_screwInBulb.Play();
                     sprite.color = new Color(0.5f, 1.0f, 0.5f, 1.0f);
                     installTimeCountdown = installTime - fixingspeed;
                 }
@@ -111,6 +134,7 @@ public class Movement : MonoBehaviour
                 {
                     officeManager.LightOn(office);
                     installingLight = false;
+                    snd_screwInBulb.Stop();
                     sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     lights.losslight(1);
                     money.addmoney(20);
@@ -121,6 +145,7 @@ public class Movement : MonoBehaviour
                         fixCount = 0;
                         stars.addstar(1);
                     }
+                    snd_goodJob.Play();
                 }
             } else if (supply != null && !pickupLight) {
                 supply.pickupLight();
@@ -129,11 +154,12 @@ public class Movement : MonoBehaviour
         }
 
         // Wrench Upgrade
-        if (Input.GetKeyDown(KeyCode.E) && wrench != null && moneyamount >= 100 && wrenchpoint < 5) 
+        if (Input.GetKeyDown(KeyCode.E) && wrench != null && moneyamount >= 100 && wrenchpoint < 5 && shoe == null) 
         {
-                money.minusmoney(100);
-                wrenchup.addPoint(1);
-                fixingspeed += 1f;
+            money.minusmoney(100);
+            wrenchup.addPoint(1);
+            fixingspeed += 1f;
+            snd_upgrade.Play();
         }
 
         // Shoe Upgrade
@@ -142,11 +168,13 @@ public class Movement : MonoBehaviour
             money.minusmoney(100);
             shoeup.addPoint(1);
             speed += 1f;
+            snd_upgrade.Play();
         }
 
         if (Input.GetKeyUp(KeyCode.E))
         {
             installingLight = false;
+            snd_screwInBulb.Stop();
             sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
             pickupLight = false;
@@ -187,6 +215,14 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void tripOnRat() {
+        installingLight = false;
+        snd_screwInBulb.Stop();
+        sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        lights.losslight(5);
+        snd_glassBreak.Play();
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Office") {
@@ -197,6 +233,8 @@ public class Movement : MonoBehaviour
             wrench = collider.gameObject.GetComponent<Wrench>();
         } else if (collider.gameObject.tag == "Shoe") {
             shoe = collider.gameObject.GetComponent<Shoe>();
+        } else if (collider.gameObject.tag == "Rat") {
+            tripOnRat();
         }
     }
 

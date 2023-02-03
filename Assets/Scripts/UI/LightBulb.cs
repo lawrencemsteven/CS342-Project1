@@ -41,6 +41,9 @@ public class LightBulb : MonoBehaviour
         if (lights > 0)
         {
             lights -= lightnumber;
+            if (lights < 0) {
+                lights = 0;
+            }
         }
     }
 
