@@ -82,7 +82,7 @@ public class Movement : MonoBehaviour
             snd_footsteps.Stop();
             footstepsPlaying = true;
         }
-        
+
         rb.velocity = (((up - down) * transform.up) + ((right - left) * transform.right)) * speed;
         if (!footstepsPlaying && (up - down != 0 || right - left != 0)) {
             footstepsPlaying = true;
@@ -154,7 +154,7 @@ public class Movement : MonoBehaviour
         }
 
         // Wrench Upgrade
-        if (Input.GetKeyDown(KeyCode.E) && wrench != null && moneyamount >= 100 && wrenchpoint < 5 && shoe == null) 
+        if (Input.GetKeyDown(KeyCode.E) && wrench != null && moneyamount >= 100 && wrenchpoint < 5 && shoe == null)
         {
             money.minusmoney(100);
             wrenchup.addPoint(1);
@@ -234,7 +234,19 @@ public class Movement : MonoBehaviour
         } else if (collider.gameObject.tag == "Shoe") {
             shoe = collider.gameObject.GetComponent<Shoe>();
         } else if (collider.gameObject.tag == "Rat") {
+
             tripOnRat();
+
+            //player fall down anim
+            if (Input.GetKey(KeyCode.A)) {
+              animator.SetTrigger("falling_left");
+            }
+            if (Input.GetKey(KeyCode.D)) {
+              animator.SetTrigger("falling_right");
+            }
+            else {
+              animator.SetTrigger("falling_left");
+            }
         }
     }
 
@@ -251,7 +263,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public float allmoney() 
+    public float allmoney()
     {
         return overallmoney;
     }
