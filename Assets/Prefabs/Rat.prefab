@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 158402647566368059}
   - component: {fileID: 5266769201439319858}
   - component: {fileID: 7192696865794672135}
+  - component: {fileID: 8739477987694762127}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Rat
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 474650016785551616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.5699477, y: 0.81, z: 0}
-  m_LocalScale: {x: 0.0317842, y: 0.022703, z: 0.045406}
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.045406}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,9 +77,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7cdea19d35ec9d64b85d76352421ad79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be376522eef5b4083a8d594fcdf5349e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -100,18 +101,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.44937158, y: -1.2243166}
+  m_Offset: {x: 0.44937158, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16.98, y: 10.38}
+    oldSize: {x: 3.28, y: 1.07}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 13.017029, y: 7.856901}
+  m_Size: {x: 5, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &5266769201439319858
 MonoBehaviour:
@@ -148,3 +149,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &8739477987694762127
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474650016785551616}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7d42f7a6b8f3480daac3fc18c629517, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

@@ -304,8 +304,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21250036}
   m_LocalRotation: {x: -0, y: -0.03048567, z: -0, w: 0.99953526}
-  m_LocalPosition: {x: 8.06, y: -1.66, z: 0.43}
-  m_LocalScale: {x: 1.5, y: 2, z: 1}
+  m_LocalPosition: {x: 8.2, y: -1.66, z: 0.43}
+  m_LocalScale: {x: 1.4, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 139167847}
@@ -1595,8 +1595,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 289505177}
   m_LocalRotation: {x: -0, y: -0.03048567, z: -0, w: 0.99953526}
-  m_LocalPosition: {x: 8.06, y: 0.72, z: 0.43}
-  m_LocalScale: {x: 1.5, y: 2, z: 1}
+  m_LocalPosition: {x: 8.2, y: 0.72, z: 0.43}
+  m_LocalScale: {x: 1.4, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 979955770}
@@ -4938,7 +4938,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060712314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.610001, y: 0.7854, z: 2.2525425}
+  m_LocalPosition: {x: 9.68, y: 0.7854, z: 2.2525425}
   m_LocalScale: {x: 1.0119319, y: 12.010709, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5781,7 +5781,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -188, y: -27}
+  m_AnchoredPosition: {x: -200, y: -35}
   m_SizeDelta: {x: 61.9169, y: 46.9703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1251104180
@@ -5886,8 +5886,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4291231704
+  m_fontColor: {r: 0.8468112, g: 1, b: 0.7783019, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5904,8 +5904,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 38
+  m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8454,8 +8454,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659882752}
   m_LocalRotation: {x: -0, y: 0.03048567, z: -0, w: 0.99953526}
-  m_LocalPosition: {x: -0.02, y: -0.01, z: -0.41}
-  m_LocalScale: {x: 0.079248115, y: 0.07910095, z: 0.15761651}
+  m_LocalPosition: {x: 0, y: 0, z: -0.41}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.15761651}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1623169978}
