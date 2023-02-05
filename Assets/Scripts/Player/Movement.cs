@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Movement : MonoBehaviour
     private bool pickupLight = false;
 
     private bool gameover = false;
+    private bool rapairing = false;
 
     public Rigidbody2D rb;
     private Office office;
@@ -29,6 +31,7 @@ public class Movement : MonoBehaviour
     private Wrench wrench;
     private Shoe shoe;
 
+    public Slider repairProgress;
     public LightBulb lights;
     public StarRating stars;
     public Money money;
@@ -60,6 +63,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //basic stat
         staramount = stars.staramount();
         lightamount = lights.lightamount();
@@ -118,6 +122,15 @@ public class Movement : MonoBehaviour
           animator.SetBool("right", false);
         }
 
+        //repair progress slider
+        repairProgress.maxValue = installTime - fixingspeed;
+        if (!rapairing) {
+            repairProgress.gameObject.SetActive(false);
+        } else {
+            repairProgress.gameObject.SetActive(true);
+            repairProgress.value = installTimeCountdown;
+        }
+
 
         //player install and get lightbulbs
         if (Input.GetKey(KeyCode.E)) {
@@ -126,6 +139,7 @@ public class Movement : MonoBehaviour
                 {
                     installingLight = true;
                     snd_screwInBulb.Play();
+                    rapairing = true;
                     sprite.color = new Color(0.5f, 1.0f, 0.5f, 1.0f);
                     installTimeCountdown = installTime - fixingspeed;
                 }
@@ -134,6 +148,7 @@ public class Movement : MonoBehaviour
                 {
                     officeManager.LightOn(office);
                     installingLight = false;
+                    rapairing = false;
                     snd_screwInBulb.Stop();
                     sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                     lights.losslight(1);
@@ -174,6 +189,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E))
         {
             installingLight = false;
+            rapairing = false;
             snd_screwInBulb.Stop();
             sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -217,6 +233,7 @@ public class Movement : MonoBehaviour
 
     void tripOnRat() {
         installingLight = false;
+        rapairing = false;
         snd_screwInBulb.Stop();
         sprite.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         lights.losslight(5);

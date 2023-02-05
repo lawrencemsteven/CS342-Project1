@@ -25,4 +25,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene("MenuScene");
     }
+
+    public void NextHowTo() 
+    {
+        SceneManager.LoadScene("HowToPlay2");
+    }
 }
